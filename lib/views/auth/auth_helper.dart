@@ -16,7 +16,7 @@ class AuthHelper extends ChangeNotifier {
       hintText: placeholderText,
       fillColor: ConstantColors.inputColor,
       filled: true,
-      helperStyle: GoogleFonts.roboto(
+      hintStyle: GoogleFonts.roboto(
         color: ConstantColors.mainlyTextColor,
         fontSize: 14,
       ),

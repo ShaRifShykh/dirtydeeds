@@ -3,6 +3,7 @@ import 'package:dirtydeeds/router/routers.dart';
 import 'package:dirtydeeds/values/branding_color.dart';
 import 'package:dirtydeeds/values/common.dart';
 import 'package:dirtydeeds/views/auth/auth_helper.dart';
+import 'package:dirtydeeds/views/home/home_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,7 @@ class DirtyDeeds extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => Common()),
         ChangeNotifierProvider(create: (_) => AuthHelper()),
+        ChangeNotifierProvider(create: (_) => HomeHelper()),
       ],
       child: MaterialApp(
         title: 'Dirty Deeds',
