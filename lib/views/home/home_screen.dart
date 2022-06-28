@@ -2,13 +2,21 @@ import 'package:dirtydeeds/values/common.dart';
 import 'package:dirtydeeds/values/constant_colors.dart';
 import 'package:dirtydeeds/values/path.dart';
 import 'package:dirtydeeds/views/home/home_helper.dart';
+import 'package:dirtydeeds/widgets/article_tile.dart';
+import 'package:dirtydeeds/widgets/search_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +29,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             Stack(
+              alignment: Alignment.center,
               children: [
                 Column(
                   children: [
@@ -58,36 +67,12 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Positioned(
                   top: 110,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        prefixIcon: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.search,
-                          ),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50.0),
-                          borderSide: const BorderSide(
-                            width: 0,
-                            style: BorderStyle.none,
-                          ),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 15),
-                        hintText: "Search news, articles, etc",
-                        fillColor: ConstantColors.whiteColor,
-                        filled: true,
-                        hintStyle: GoogleFonts.roboto(
-                          color: ConstantColors.mainlyTextColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
+                  child: SearchInputField(
+                    onIconPressed: () {},
+                    wantPadding: true,
+                    placeHolderText: "Search news, articles, etc",
+                    fillColor: ConstantColors.whiteColor,
+                    searchController: searchController,
                   ),
                 ),
                 Positioned(
@@ -166,6 +151,30 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: 40),
                   common.mainHeading(heading: "Exclusive Partners"),
                   const SizedBox(height: 25),
+                  repeater(context, home),
+                  const SizedBox(height: 40),
+                  common.mainHeading(heading: "Journals"),
+                  const SizedBox(height: 25),
+                  repeater(context, home),
+                  const SizedBox(height: 40),
+                  common.mainHeading(heading: "Latest Health News"),
+
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: 12,
+                    itemBuilder: (context, index) {
+                      return const ArticleTile(
+                        imagePath: Path.homeImg3,
+                        title: "What To Eat During Pregnancy?",
+                        subTitle: "Complimentary Room Upgrades,",
+                        timestamp: "2 DAYS AGO",
+                      );
+                    },
+                  ),
+
+                  // End Spacing
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
@@ -174,4 +183,26 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget repeater(BuildContext context, home) {
+  return Column(
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          home.partners(context: context),
+          home.partners(context: context),
+        ],
+      ),
+      const SizedBox(height: 15),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          home.partners(context: context),
+          home.partners(context: context),
+        ],
+      ),
+    ],
+  );
 }

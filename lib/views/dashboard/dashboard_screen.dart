@@ -47,6 +47,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
         children: _screens,
       ),
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         backgroundColor: ConstantColors.whiteColor,
         type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped,

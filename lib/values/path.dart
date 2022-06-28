@@ -5,6 +5,8 @@ class Path {
   static const String homeBG2 = "assets/images/home-bg2.jpg";
 
   static const String homeImg = "assets/images/home-img.jpg";
+  static const String homeImg2 = "assets/images/home-img2.jpg";
+  static const String homeImg3 = "assets/images/home-img3.jpg";
 
   // Icons TO Be REMOVED
   static const String i1 = "assets/images/icons/i1.png";
