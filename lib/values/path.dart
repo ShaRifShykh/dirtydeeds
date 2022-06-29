@@ -8,6 +8,11 @@ class Path {
   static const String homeImg2 = "assets/images/home-img2.jpg";
   static const String homeImg3 = "assets/images/home-img3.jpg";
 
+  static const String articleImg = "assets/images/article-img1.png";
+
+  static const String videoImg = "assets/images/video-img.png";
+  static const String videoImg2 = "assets/images/video-img2.jpg";
+
   // Icons TO Be REMOVED
   static const String i1 = "assets/images/icons/i1.png";
   static const String i2 = "assets/images/icons/i2.png";

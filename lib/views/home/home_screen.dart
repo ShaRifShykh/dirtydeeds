@@ -164,7 +164,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: 12,
                     itemBuilder: (context, index) {
-                      return const ArticleTile(
+                      return ArticleTile(
+                        onTap: () {},
                         imagePath: Path.homeImg3,
                         title: "What To Eat During Pregnancy?",
                         subTitle: "Complimentary Room Upgrades,",

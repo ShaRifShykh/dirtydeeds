@@ -7,3 +7,5 @@ const String signUpRoute = "signUp";
 
 // Main Routes
 const String dashboardRoute = "dashboard";
+const String articleDetailRoute = "articleDetail";
+const String videoPreviewRoute = "videoPreview";

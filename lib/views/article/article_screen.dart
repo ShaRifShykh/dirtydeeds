@@ -1,3 +1,4 @@
+import 'package:dirtydeeds/router/route_constant.dart';
 import 'package:dirtydeeds/values/constant_colors.dart';
 import 'package:dirtydeeds/values/path.dart';
 import 'package:dirtydeeds/widgets/article_tile.dart';
@@ -49,7 +50,10 @@ class _ArticleScreenState extends State<ArticleScreen> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: 12,
                 itemBuilder: (context, index) {
-                  return const ArticleTile(
+                  return ArticleTile(
+                    onTap: () {
+                      Navigator.pushNamed(context, articleDetailRoute);
+                    },
                     imagePath: Path.homeImg3,
                     title: "What To Eat During Pregnancy?",
                     subTitle: "Complimentary Room Upgrades,",
