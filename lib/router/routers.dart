@@ -2,6 +2,8 @@ import 'package:dirtydeeds/router/route_constant.dart';
 import 'package:dirtydeeds/views/article/article_detail_screen.dart';
 import 'package:dirtydeeds/views/auth/login_in_screen.dart';
 import 'package:dirtydeeds/views/auth/sign_up_screen.dart';
+import 'package:dirtydeeds/views/blog/blog_detail_screen.dart';
+import 'package:dirtydeeds/views/blog/blog_screen.dart';
 import 'package:dirtydeeds/views/dashboard/dashboard_screen.dart';
 import 'package:dirtydeeds/views/splash/splash_screen.dart';
 import 'package:dirtydeeds/views/video/video_preview_screen.dart';
@@ -43,6 +45,20 @@ class Routers {
       case videoPreviewRoute:
         return PageTransition(
           child: const VideoPreviewScreen(),
+          type: PageTransitionType.rightToLeft,
+        );
+
+      // Audio Book Route Here
+
+      case blogRoute:
+        return PageTransition(
+          child: const BlogScreen(),
+          type: PageTransitionType.rightToLeft,
+        );
+
+      case blogDetailRoute:
+        return PageTransition(
+          child: const BlogDetailScreen(),
           type: PageTransitionType.rightToLeft,
         );
 

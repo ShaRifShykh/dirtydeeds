@@ -9,3 +9,6 @@ const String signUpRoute = "signUp";
 const String dashboardRoute = "dashboard";
 const String articleDetailRoute = "articleDetail";
 const String videoPreviewRoute = "videoPreview";
+// Audio Book Route Here
+const String blogRoute = "blog";
+const String blogDetailRoute = "blogDetail";

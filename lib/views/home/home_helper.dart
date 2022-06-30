@@ -7,32 +7,36 @@ class HomeHelper extends ChangeNotifier {
   Widget category(
       {required String img,
       required String text,
-      required BuildContext context}) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width / 6,
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            decoration: BoxDecoration(
-                color: ConstantColors.lightBlueColor,
-                borderRadius: BorderRadius.circular(50)),
-            child: Center(
-              child: Image.asset(
-                img,
-                fit: BoxFit.cover,
+      required BuildContext context,
+      required Function onTap}) {
+    return GestureDetector(
+      onTap: () => onTap(),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width / 6,
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              decoration: BoxDecoration(
+                  color: ConstantColors.lightBlueColor,
+                  borderRadius: BorderRadius.circular(50)),
+              child: Center(
+                child: Image.asset(
+                  img,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            text,
-            style: GoogleFonts.poppins(
-              fontWeight: FontWeight.w400,
-              fontSize: 12,
-            ),
-          )
-        ],
+            const SizedBox(height: 5),
+            Text(
+              text,
+              style: GoogleFonts.poppins(
+                fontWeight: FontWeight.w400,
+                fontSize: 12,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

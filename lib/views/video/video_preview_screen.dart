@@ -21,7 +21,59 @@ class VideoPreviewScreen extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   height: 420,
                   fit: BoxFit.cover,
-                )
+                ),
+                Positioned.fill(
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 50),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Icon(
+                              Icons.arrow_back,
+                              color: ConstantColors.whiteColor,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {},
+                                child: const Icon(
+                                  Icons.favorite_border_rounded,
+                                  color: ConstantColors.whiteColor,
+                                ),
+                              ),
+                              const SizedBox(width: 20),
+                              GestureDetector(
+                                onTap: () {},
+                                child: const Icon(
+                                  Icons.share,
+                                  color: ConstantColors.whiteColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const Positioned.fill(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Icon(
+                      Icons.play_circle,
+                      size: 50,
+                      color: ConstantColors.whiteColor,
+                    ),
+                  ),
+                ),
               ],
             ),
             Padding(

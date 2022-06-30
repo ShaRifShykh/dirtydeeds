@@ -1,3 +1,4 @@
+import 'package:dirtydeeds/router/route_constant.dart';
 import 'package:dirtydeeds/values/common.dart';
 import 'package:dirtydeeds/values/constant_colors.dart';
 import 'package:dirtydeeds/values/path.dart';
@@ -101,21 +102,27 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       home.category(
+                        onTap: () {},
                         context: context,
                         img: Path.i1,
                         text: "Audiobook",
                       ),
                       home.category(
+                        onTap: () {
+                          Navigator.pushNamed(context, blogRoute);
+                        },
                         context: context,
                         img: Path.i2,
                         text: "Blog",
                       ),
                       home.category(
+                        onTap: () {},
                         context: context,
                         img: Path.i3,
                         text: "Journals",
                       ),
                       home.category(
+                        onTap: () {},
                         context: context,
                         img: Path.i4,
                         text: "Medical",
@@ -127,21 +134,25 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       home.category(
+                        onTap: () {},
                         context: context,
                         img: Path.i5,
                         text: "Education Videos",
                       ),
                       home.category(
+                        onTap: () {},
                         context: context,
                         img: Path.i6,
                         text: "Confrences Video",
                       ),
                       home.category(
+                        onTap: () {},
                         context: context,
                         img: Path.i7,
                         text: "Debate & Discussion",
                       ),
                       home.category(
+                        onTap: () {},
                         context: context,
                         img: Path.i8,
                         text: "Companies Video",

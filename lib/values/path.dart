@@ -13,6 +13,9 @@ class Path {
   static const String videoImg = "assets/images/video-img.png";
   static const String videoImg2 = "assets/images/video-img2.jpg";
 
+  static const String blogImg = "assets/images/blog-img.png";
+  static const String blogImg2 = "assets/images/blog-img2.png";
+
   // Icons TO Be REMOVED
   static const String i1 = "assets/images/icons/i1.png";
   static const String i2 = "assets/images/icons/i2.png";

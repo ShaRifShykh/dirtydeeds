@@ -5,7 +5,9 @@ class ConstantColors {
   static const unLoadedColor = Color(0xFFF6E5DA);
 
   static const mainlyTextColor = Color(0xFF595757);
+  static const mainlyTextColor2 = Color(0xFFAAAAAA);
   static const inputColor = Color(0xFFF3F3F3);
+  static const inputColor2 = Color(0xFFF5F6F8);
 
   static const Color lightBlueColor = Color(0xFFA9DAFF);
   static const Color blueColor = Color(0xFF55B4FF);
