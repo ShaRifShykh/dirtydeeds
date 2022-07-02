@@ -1,5 +1,6 @@
 import 'package:dirtydeeds/router/route_constant.dart';
 import 'package:dirtydeeds/views/article/article_detail_screen.dart';
+import 'package:dirtydeeds/views/audio/playing_audio_screen.dart';
 import 'package:dirtydeeds/views/auth/login_in_screen.dart';
 import 'package:dirtydeeds/views/auth/sign_up_screen.dart';
 import 'package:dirtydeeds/views/blog/blog_detail_screen.dart';
@@ -48,7 +49,11 @@ class Routers {
           type: PageTransitionType.rightToLeft,
         );
 
-      // Audio Book Route Here
+      case playingAudioRoute:
+        return PageTransition(
+          child: const PlayingAudioScreen(),
+          type: PageTransitionType.rightToLeft,
+        );
 
       case blogRoute:
         return PageTransition(

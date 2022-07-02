@@ -3,6 +3,7 @@ import 'package:dirtydeeds/router/routers.dart';
 import 'package:dirtydeeds/values/branding_color.dart';
 import 'package:dirtydeeds/values/common.dart';
 import 'package:dirtydeeds/views/article/article_helper.dart';
+import 'package:dirtydeeds/views/audio/audio_helper.dart';
 import 'package:dirtydeeds/views/auth/auth_helper.dart';
 import 'package:dirtydeeds/views/blog/blog_helper.dart';
 import 'package:dirtydeeds/views/home/home_helper.dart';
@@ -28,6 +29,7 @@ class DirtyDeeds extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => HomeHelper()),
         ChangeNotifierProvider(create: (_) => VideoHelper()),
         ChangeNotifierProvider(create: (_) => ArticleHelper()),
+        ChangeNotifierProvider(create: (_) => AudioHelper()),
         ChangeNotifierProvider(create: (_) => BlogHelper()),
       ],
       child: MaterialApp(
