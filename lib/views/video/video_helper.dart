@@ -41,7 +41,7 @@ class VideoHelper extends ChangeNotifier {
                   width: MediaQuery.of(context).size.width,
                   height: 90,
                   decoration: BoxDecoration(
-                    color: Color(0xFFEA9459).withOpacity(0.5),
+                    color: const Color(0xFFEA9459).withOpacity(0.5),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

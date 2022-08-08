@@ -12,3 +12,9 @@ const String videoPreviewRoute = "videoPreview";
 const String playingAudioRoute = "playingAudio";
 const String blogRoute = "blog";
 const String blogDetailRoute = "blogDetail";
+const String editProfileRoute = "editProfile";
+
+// Config Routes
+const String aboutUsRoute = "aboutUs";
+const String tacRoute = "termsAndConditions";
+const String ppRoute = "privacyPolicy";

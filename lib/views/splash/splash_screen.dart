@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:dirtydeeds/application/storage/local_storage.dart';
+import 'package:dirtydeeds/application/storage/storage_keys.dart';
 import 'package:dirtydeeds/router/route_constant.dart';
 import 'package:dirtydeeds/values/constant_colors.dart';
 import 'package:dirtydeeds/values/path.dart';
@@ -19,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
       const Duration(seconds: 3),
       () => Navigator.pushReplacementNamed(
         context,
-        loginRoute,
+        LocalStorage.getItem(TOKEN) != null ? dashboardRoute : loginRoute,
       ),
     );
   }

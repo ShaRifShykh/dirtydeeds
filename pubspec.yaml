@@ -28,12 +28,18 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cupertino_icons: ^1.0.2
+  dio: ^4.0.6
   flutter:
     sdk: flutter
+  flutter_html: ^2.2.1
   font_awesome_flutter: ^10.1.0
   google_fonts: ^3.0.1
+  image_picker: ^0.8.5+3
   page_transition: ^2.0.9
   provider: ^6.0.3
+  shared_preferences: ^2.0.15
+  top_snackbar_flutter: ^2.1.1
+  video_player: ^2.4.5
 
 dev_dependencies:
   flutter_lints: ^2.0.0

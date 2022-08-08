@@ -1,3 +1,4 @@
+import 'package:dirtydeeds/application/services/auth_service.dart';
 import 'package:dirtydeeds/router/route_constant.dart';
 import 'package:dirtydeeds/values/constant_colors.dart';
 import 'package:dirtydeeds/values/path.dart';
@@ -9,8 +10,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController phoneNumberOrEmail = TextEditingController();
+  TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +39,7 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 60),
               TextField(
+                controller: phoneNumberOrEmail,
                 style: GoogleFonts.roboto(
                   color: ConstantColors.mainlyTextColor,
                 ),
@@ -41,6 +51,7 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               TextField(
+                controller: password,
                 obscureText: true,
                 style: GoogleFonts.roboto(
                   color: ConstantColors.mainlyTextColor,
@@ -65,11 +76,24 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(height: 15),
               FilledButton(
                 onTap: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    dashboardRoute,
-                    (route) => false,
-                  );
+                  Provider.of<AuthService>(context, listen: false)
+                      .signIn(
+                        context: context,
+                        phoneNumberOrEmail: phoneNumberOrEmail.text,
+                        password: password.text,
+                      )
+                      .then(
+                        (value) => {
+                          if (value != null)
+                            {
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                dashboardRoute,
+                                (route) => false,
+                              )
+                            }
+                        },
+                      );
                 },
                 btnText: "Login",
               ),
@@ -79,28 +103,28 @@ class LoginScreen extends StatelessWidget {
                 height: 1,
                 color: ConstantColors.strokeColor,
               ),
-              const SizedBox(height: 35),
-              Text(
-                "You can also login with",
-                style: GoogleFonts.roboto(
-                  color: ConstantColors.mainlyTextColor,
-                ),
-              ),
-              const SizedBox(height: 15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Provider.of<AuthHelper>(context, listen: false).socialIcons(
-                    onTap: () {},
-                    icon: FontAwesomeIcons.facebookF,
-                  ),
-                  const SizedBox(width: 15),
-                  Provider.of<AuthHelper>(context, listen: false).socialIcons(
-                    onTap: () {},
-                    icon: FontAwesomeIcons.googlePlusG,
-                  ),
-                ],
-              ),
+              // const SizedBox(height: 35),
+              // Text(
+              //   "You can also login with",
+              //   style: GoogleFonts.roboto(
+              //     color: ConstantColors.mainlyTextColor,
+              //   ),
+              // ),
+              // const SizedBox(height: 15),
+              // Row(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              // children: [
+              //   Provider.of<AuthHelper>(context, listen: false).socialIcons(
+              //     onTap: () {},
+              //     icon: FontAwesomeIcons.facebookF,
+              //   ),
+              //     const SizedBox(width: 15),
+              //     Provider.of<AuthHelper>(context, listen: false).socialIcons(
+              //       onTap: () {},
+              //       icon: FontAwesomeIcons.googlePlusG,
+              //     ),
+              //   ],
+              // ),
               const SizedBox(height: 90),
               RichText(
                 text: TextSpan(

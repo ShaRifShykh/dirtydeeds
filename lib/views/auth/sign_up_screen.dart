@@ -1,3 +1,4 @@
+import 'package:dirtydeeds/application/services/auth_service.dart';
 import 'package:dirtydeeds/router/route_constant.dart';
 import 'package:dirtydeeds/values/constant_colors.dart';
 import 'package:dirtydeeds/views/auth/auth_helper.dart';
@@ -14,6 +15,11 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  TextEditingController name = TextEditingController();
+  TextEditingController phoneNumberOrEmail = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController confirmPassword = TextEditingController();
+
   final List<String> _genders = [
     'Male',
     'Female',
@@ -68,6 +74,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               const SizedBox(height: 40),
               TextField(
+                controller: name,
                 style: GoogleFonts.roboto(
                   color: ConstantColors.mainlyTextColor,
                 ),
@@ -129,6 +136,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               const SizedBox(height: 15),
               TextField(
+                controller: phoneNumberOrEmail,
                 style: GoogleFonts.roboto(
                   color: ConstantColors.mainlyTextColor,
                 ),
@@ -139,6 +147,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               const SizedBox(height: 15),
               TextField(
+                controller: password,
                 obscureText: true,
                 style: GoogleFonts.roboto(
                   color: ConstantColors.mainlyTextColor,
@@ -150,6 +159,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               const SizedBox(height: 15),
               TextField(
+                controller: confirmPassword,
                 obscureText: true,
                 style: GoogleFonts.roboto(
                   color: ConstantColors.mainlyTextColor,
@@ -161,12 +171,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               const SizedBox(height: 15),
               FilledButton(
-                onTap: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    dashboardRoute,
-                    (route) => false,
-                  );
+                onTap: () async {
+                  Provider.of<AuthService>(context, listen: false)
+                      .signUp(
+                        context: context,
+                        name: name.text,
+                        gender: _genderValue,
+                        phoneNumberOrEmail: phoneNumberOrEmail.text,
+                        password: password.text,
+                        confirmPassword: confirmPassword.text,
+                      )
+                      .then(
+                        (value) => {
+                          if (value != null)
+                            {
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                dashboardRoute,
+                                (route) => false,
+                              )
+                            }
+                        },
+                      );
                 },
                 btnText: "Next",
               ),

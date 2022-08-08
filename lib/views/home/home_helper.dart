@@ -83,7 +83,7 @@ class HomeHelper extends ChangeNotifier {
                     width: MediaQuery.of(context).size.width / 2.4,
                     height: 30,
                     decoration: BoxDecoration(
-                      color: Color(0xFFEA945933).withOpacity(0.8),
+                      color: const Color(0xFFEA9459).withOpacity(0.8),
                     ),
                     child: Row(
                       children: [

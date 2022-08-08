@@ -18,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController searchController = TextEditingController();
+  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
     var common = Provider.of<Common>(context, listen: false);
 
     return Scaffold(
+      key: _drawerKey,
+      drawer: Provider.of<Common>(context, listen: false).drawer(context),
       backgroundColor: ConstantColors.whiteColor,
       body: SingleChildScrollView(
         child: Column(
@@ -58,7 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _drawerKey.currentState?.openDrawer();
+                      },
                       icon: const Icon(
                         FontAwesomeIcons.bars,
                         size: 18,
@@ -170,20 +175,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 40),
                   common.mainHeading(heading: "Latest Health News"),
 
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 12,
-                    itemBuilder: (context, index) {
-                      return ArticleTile(
-                        onTap: () {},
-                        imagePath: Path.homeImg3,
-                        title: "What To Eat During Pregnancy?",
-                        subTitle: "Complimentary Room Upgrades,",
-                        timestamp: "2 DAYS AGO",
-                      );
-                    },
-                  ),
+                  // ListView.builder(
+                  //   shrinkWrap: true,
+                  //   physics: const NeverScrollableScrollPhysics(),
+                  //   itemCount: 12,
+                  //   itemBuilder: (context, index) {
+                  //     return ArticleTile(
+                  //       onTap: () {},
+                  //       imagePath: Path.homeImg3,
+                  //       title: "What To Eat During Pregnancy?",
+                  //       subTitle: "Complimentary Room Upgrades,",
+                  //       timestamp: "2 DAYS AGO",
+                  //     );
+                  //   },
+                  // ),
 
                   // End Spacing
                   const SizedBox(height: 20),

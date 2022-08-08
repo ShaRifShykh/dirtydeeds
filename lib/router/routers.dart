@@ -5,7 +5,11 @@ import 'package:dirtydeeds/views/auth/login_in_screen.dart';
 import 'package:dirtydeeds/views/auth/sign_up_screen.dart';
 import 'package:dirtydeeds/views/blog/blog_detail_screen.dart';
 import 'package:dirtydeeds/views/blog/blog_screen.dart';
+import 'package:dirtydeeds/views/config/about_us_screen.dart';
+import 'package:dirtydeeds/views/config/privacy_policy_screen.dart';
+import 'package:dirtydeeds/views/config/terms_and_conditions_screen.dart';
 import 'package:dirtydeeds/views/dashboard/dashboard_screen.dart';
+import 'package:dirtydeeds/views/profile/edit_profile_screen.dart';
 import 'package:dirtydeeds/views/splash/splash_screen.dart';
 import 'package:dirtydeeds/views/video/video_preview_screen.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +68,31 @@ class Routers {
       case blogDetailRoute:
         return PageTransition(
           child: const BlogDetailScreen(),
+          type: PageTransitionType.rightToLeft,
+        );
+
+      case editProfileRoute:
+        return PageTransition(
+          child: const EditProfileScreen(),
+          type: PageTransitionType.rightToLeft,
+        );
+
+      // Config Routes
+      case aboutUsRoute:
+        return PageTransition(
+          child: const AboutUsScreen(),
+          type: PageTransitionType.rightToLeft,
+        );
+
+      case ppRoute:
+        return PageTransition(
+          child: const PrivacyPolicyScreen(),
+          type: PageTransitionType.rightToLeft,
+        );
+
+      case tacRoute:
+        return PageTransition(
+          child: const TermsAndConditionsScreen(),
           type: PageTransitionType.rightToLeft,
         );
 

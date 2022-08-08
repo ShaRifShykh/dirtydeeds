@@ -41,7 +41,7 @@ class ArticleTile extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Image.asset(
+              child: Image.network(
                 imagePath,
                 fit: BoxFit.cover,
                 width: 100,

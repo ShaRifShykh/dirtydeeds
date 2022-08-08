@@ -1,10 +1,13 @@
+import 'package:dirtydeeds/application/services/article_service.dart';
 import 'package:dirtydeeds/router/route_constant.dart';
+import 'package:dirtydeeds/values/common.dart';
 import 'package:dirtydeeds/values/constant_colors.dart';
 import 'package:dirtydeeds/values/path.dart';
 import 'package:dirtydeeds/widgets/article_tile.dart';
 import 'package:dirtydeeds/widgets/search_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ArticleScreen extends StatefulWidget {
   const ArticleScreen({Key? key}) : super(key: key);
@@ -18,6 +21,8 @@ class _ArticleScreenState extends State<ArticleScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var articles = Provider.of<ArticleService>(context, listen: true).articles;
+
     return Scaffold(
       backgroundColor: ConstantColors.whiteColor,
       appBar: AppBar(
@@ -48,16 +53,17 @@ class _ArticleScreenState extends State<ArticleScreen> {
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: 12,
+                itemCount: articles.length,
                 itemBuilder: (context, index) {
                   return ArticleTile(
                     onTap: () {
                       Navigator.pushNamed(context, articleDetailRoute);
                     },
-                    imagePath: Path.homeImg3,
-                    title: "What To Eat During Pregnancy?",
-                    subTitle: "Complimentary Room Upgrades,",
-                    timestamp: "2 DAYS AGO",
+                    imagePath: Common.imgUrl + articles[index].image,
+                    title: articles[index].title,
+                    subTitle:
+                        articles[index].tags.map((e) => e.tag?.name).toString(),
+                    timestamp: articles[index].createdAt,
                   );
                 },
               ),
