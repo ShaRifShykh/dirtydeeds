@@ -21,13 +21,6 @@ class ArticleHelper extends ChangeNotifier {
                   color: ConstantColors.whiteColor,
                 ),
               ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.favorite_outline_outlined,
-                  color: ConstantColors.whiteColor,
-                ),
-              ),
             ],
           ),
         ),
@@ -38,11 +31,11 @@ class ArticleHelper extends ChangeNotifier {
   Widget headerText({
     required String category,
     required String title,
-    required String name,
+    // required String name,
   }) {
     return Positioned.fill(
       child: Align(
-        // alignment: Alignment.bottomLeft,
+        alignment: Alignment.bottomLeft,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
           child: Column(
@@ -73,28 +66,6 @@ class ArticleHelper extends ChangeNotifier {
                   color: ConstantColors.whiteColor,
                   fontSize: 20,
                 ),
-              ),
-              const SizedBox(height: 15),
-              Row(
-                children: [
-                  Container(
-                    width: 30,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      color: ConstantColors.blueColor,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Text(
-                    name,
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: ConstantColors.whiteColor,
-                    ),
-                  )
-                ],
               ),
             ],
           ),

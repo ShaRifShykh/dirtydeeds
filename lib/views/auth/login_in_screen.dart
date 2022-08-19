@@ -23,6 +23,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var _authService = Provider.of<AuthService>(context, listen: true);
+
     return Scaffold(
       backgroundColor: ConstantColors.whiteColor,
       body: SingleChildScrollView(
@@ -74,29 +76,31 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               const SizedBox(height: 15),
-              FilledButton(
-                onTap: () {
-                  Provider.of<AuthService>(context, listen: false)
-                      .signIn(
-                        context: context,
-                        phoneNumberOrEmail: phoneNumberOrEmail.text,
-                        password: password.text,
-                      )
-                      .then(
-                        (value) => {
-                          if (value != null)
-                            {
-                              Navigator.pushNamedAndRemoveUntil(
-                                context,
-                                dashboardRoute,
-                                (route) => false,
-                              )
-                            }
-                        },
-                      );
-                },
-                btnText: "Login",
-              ),
+              _authService.isLoading
+                  ? const CircularProgressIndicator()
+                  : FilledButton(
+                      onTap: () {
+                        Provider.of<AuthService>(context, listen: false)
+                            .signIn(
+                              context: context,
+                              phoneNumberOrEmail: phoneNumberOrEmail.text,
+                              password: password.text,
+                            )
+                            .then(
+                              (value) => {
+                                if (value != null)
+                                  {
+                                    Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      dashboardRoute,
+                                      (route) => false,
+                                    )
+                                  }
+                              },
+                            );
+                      },
+                      btnText: "Login",
+                    ),
               const SizedBox(height: 35),
               Container(
                 width: MediaQuery.of(context).size.width,

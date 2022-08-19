@@ -1,6 +1,8 @@
 import 'package:dirtydeeds/application/services/article_service.dart';
 import 'package:dirtydeeds/application/services/audio_book_service.dart';
 import 'package:dirtydeeds/application/services/auth_service.dart';
+import 'package:dirtydeeds/application/services/banner_service.dart';
+import 'package:dirtydeeds/application/services/comment_service.dart';
 import 'package:dirtydeeds/application/services/config_service.dart';
 import 'package:dirtydeeds/application/services/journal_service.dart';
 import 'package:dirtydeeds/application/services/video_service.dart';
@@ -34,6 +36,8 @@ class DirtyDeeds extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Common()),
+        ChangeNotifierProvider(create: (_) => BannerService()),
+        ChangeNotifierProvider(create: (_) => CommentService()),
         ChangeNotifierProvider(create: (_) => AuthService()),
         ChangeNotifierProvider(create: (_) => ArticleService()),
         ChangeNotifierProvider(create: (_) => JournalService()),

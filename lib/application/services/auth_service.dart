@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 
 class AuthService extends ChangeNotifier {
   User? user;
+  bool isLoading = false;
 
   Future signIn({
     required BuildContext context,
@@ -18,6 +19,7 @@ class AuthService extends ChangeNotifier {
     required String password,
   }) async {
     try {
+      isLoading = true;
       var res = await DirtyDeedsApi.dio.post("auth/sign-in", data: {
         "phoneNumberOrEmail": phoneNumberOrEmail,
         "password": password,
@@ -26,6 +28,9 @@ class AuthService extends ChangeNotifier {
       String accessToken = res.data["accessToken"];
 
       await LocalStorage.setItem(TOKEN, accessToken);
+
+      isLoading = false;
+      notifyListeners();
 
       return accessToken;
     } on DioError catch (e) {
@@ -45,6 +50,7 @@ class AuthService extends ChangeNotifier {
     required String confirmPassword,
   }) async {
     try {
+      isLoading = true;
       var res = await DirtyDeedsApi.dio.post("auth/sign-up", data: {
         "name": name,
         "gender": gender,
@@ -56,6 +62,9 @@ class AuthService extends ChangeNotifier {
       String accessToken = res.data["accessToken"];
 
       await LocalStorage.setItem(TOKEN, accessToken);
+
+      isLoading = false;
+      notifyListeners();
 
       return accessToken;
     } on DioError catch (e) {

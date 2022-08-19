@@ -1,3 +1,9 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dirtydeeds/application/services/article_service.dart';
+import 'package:dirtydeeds/application/services/banner_service.dart';
+import 'package:dirtydeeds/application/services/config_service.dart';
+import 'package:dirtydeeds/application/services/journal_service.dart';
+import 'package:dirtydeeds/application/services/video_service.dart';
 import 'package:dirtydeeds/router/route_constant.dart';
 import 'package:dirtydeeds/values/common.dart';
 import 'package:dirtydeeds/values/constant_colors.dart';
@@ -24,6 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     var home = Provider.of<HomeHelper>(context, listen: false);
     var common = Provider.of<Common>(context, listen: false);
+    var articles = Provider.of<ArticleService>(context, listen: true).articles;
+    var videos = Provider.of<VideoService>(context, listen: false).videos;
+    var journals = Provider.of<JournalService>(context, listen: false).journals;
+    var banners = Provider.of<BannerService>(context, listen: true).banners;
+    var appInfos = Provider.of<ConfigService>(context, listen: true);
 
     return Scaffold(
       key: _drawerKey,
@@ -83,19 +94,45 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Positioned(
                   top: 180,
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width,
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: Center(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.asset(
-                          Path.homeImg,
-                        ),
+                    height: 180,
+                    child: CarouselSlider(
+                      options: CarouselOptions(
+                        height: 180,
+                        autoPlay: true,
+                        autoPlayInterval: const Duration(seconds: 3),
+                        autoPlayAnimationDuration:
+                            const Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        aspectRatio: 16 / 9,
+                        viewportFraction: 0.8,
+                        initialPage: 0,
                       ),
+                      items: banners.map((banner) {
+                        return Builder(builder: (BuildContext context) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 25),
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: Center(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.network(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 160,
+                                    Common.imgUrl + banner.image,
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        });
+                      }).toList(),
                     ),
                   ),
-                )
+                ),
               ],
             ),
             Padding(
@@ -107,10 +144,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       home.category(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, audioBookRoute);
+                        },
                         context: context,
                         img: Path.i1,
                         text: "Audiobook",
+                        color: Common().colorFromHex(
+                          appInfos.color1 ?? "#A9DAFF",
+                        ),
                       ),
                       home.category(
                         onTap: () {
@@ -119,18 +161,31 @@ class _HomeScreenState extends State<HomeScreen> {
                         context: context,
                         img: Path.i2,
                         text: "Blog",
+                        color: Common().colorFromHex(
+                          appInfos.color2 ?? "#A9DAFF",
+                        ),
                       ),
                       home.category(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, journalRoute);
+                        },
                         context: context,
                         img: Path.i3,
                         text: "Journals",
+                        color: Common().colorFromHex(
+                          appInfos.color3 ?? "#A9DAFF",
+                        ),
                       ),
                       home.category(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, articleRoute);
+                        },
                         context: context,
                         img: Path.i4,
                         text: "Medical",
+                        color: Common().colorFromHex(
+                          appInfos.color4 ?? "#A9DAFF",
+                        ),
                       ),
                     ],
                   ),
@@ -139,56 +194,131 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       home.category(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, videoRoute);
+                        },
                         context: context,
                         img: Path.i5,
                         text: "Education Videos",
+                        color: Common().colorFromHex(
+                          appInfos.color5 ?? "#A9DAFF",
+                        ),
                       ),
                       home.category(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, videoRoute);
+                        },
                         context: context,
                         img: Path.i6,
                         text: "Confrences Video",
+                        color: Common().colorFromHex(
+                          appInfos.color6 ?? "#A9DAFF",
+                        ),
                       ),
                       home.category(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, videoRoute);
+                        },
                         context: context,
                         img: Path.i7,
                         text: "Debate & Discussion",
+                        color: Common().colorFromHex(
+                          appInfos.color7 ?? "#A9DAFF",
+                        ),
                       ),
                       home.category(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, videoRoute);
+                        },
                         context: context,
                         img: Path.i8,
                         text: "Companies Video",
+                        color: Common().colorFromHex(
+                          appInfos.color8 ?? "#A9DAFF",
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 40),
                   common.mainHeading(heading: "Exclusive Partners"),
-                  const SizedBox(height: 25),
-                  repeater(context, home),
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: MediaQuery.of(context).size.width /
+                          (MediaQuery.of(context).size.height / 1.5),
+                    ),
+                    itemCount: videos.length < 2 ? videos.length : 2,
+                    itemBuilder: (context, index) {
+                      return home.partners(
+                        context: context,
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            videoPreviewRoute,
+                            arguments: videos[index],
+                          );
+                        },
+                        image: Common.imgUrl + videos[index].image,
+                        title: videos[index].title,
+                        by: videos[index].admin!.firstName,
+                        createdAt: videos[index].createdAt,
+                      );
+                    },
+                  ),
                   const SizedBox(height: 40),
                   common.mainHeading(heading: "Journals"),
-                  const SizedBox(height: 25),
-                  repeater(context, home),
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: MediaQuery.of(context).size.width /
+                          (MediaQuery.of(context).size.height / 1.5),
+                    ),
+                    itemCount: journals.length < 2 ? journals.length : 2,
+                    itemBuilder: (context, index) {
+                      return home.journals(
+                        context: context,
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            journalDetailRoute,
+                            arguments: journals[index],
+                          );
+                        },
+                        image: Common.imgUrl + journals[index].image,
+                        title: journals[index].title,
+                        createdAt: journals[index].createdAt,
+                      );
+                    },
+                  ),
                   const SizedBox(height: 40),
                   common.mainHeading(heading: "Latest Health News"),
-
-                  // ListView.builder(
-                  //   shrinkWrap: true,
-                  //   physics: const NeverScrollableScrollPhysics(),
-                  //   itemCount: 12,
-                  //   itemBuilder: (context, index) {
-                  //     return ArticleTile(
-                  //       onTap: () {},
-                  //       imagePath: Path.homeImg3,
-                  //       title: "What To Eat During Pregnancy?",
-                  //       subTitle: "Complimentary Room Upgrades,",
-                  //       timestamp: "2 DAYS AGO",
-                  //     );
-                  //   },
-                  // ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: articles.length < 2 ? articles.length : 2,
+                    itemBuilder: (context, index) {
+                      return ArticleTile(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            articleDetailRoute,
+                            arguments: articles[index],
+                          );
+                        },
+                        imagePath: Common.imgUrl + articles[index].image,
+                        title: articles[index].title,
+                        subTitle: articles[index]
+                            .tags
+                            .map((e) => e.tag?.name)
+                            .toString(),
+                        timestamp: articles[index].createdAt,
+                      );
+                    },
+                  ),
 
                   // End Spacing
                   const SizedBox(height: 20),
@@ -200,26 +330,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-}
-
-Widget repeater(BuildContext context, home) {
-  return Column(
-    children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          home.partners(context: context),
-          home.partners(context: context),
-        ],
-      ),
-      const SizedBox(height: 15),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          home.partners(context: context),
-          home.partners(context: context),
-        ],
-      ),
-    ],
-  );
 }

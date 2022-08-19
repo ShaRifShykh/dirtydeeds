@@ -1,6 +1,7 @@
+import 'package:dirtydeeds/application/services/article_service.dart';
 import 'package:dirtydeeds/router/route_constant.dart';
+import 'package:dirtydeeds/values/common.dart';
 import 'package:dirtydeeds/values/constant_colors.dart';
-import 'package:dirtydeeds/values/path.dart';
 import 'package:dirtydeeds/views/blog/blog_helper.dart';
 import 'package:dirtydeeds/widgets/search_input_field.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class _BlogScreenState extends State<BlogScreen> {
   @override
   Widget build(BuildContext context) {
     var blog = Provider.of<BlogHelper>(context, listen: false);
+    var articles = Provider.of<ArticleService>(context, listen: true).articles;
 
     return Scaffold(
       backgroundColor: ConstantColors.whiteColor,
@@ -41,7 +43,18 @@ class _BlogScreenState extends State<BlogScreen> {
           child: Column(
             children: [
               SearchInputField(
-                onIconPressed: () {},
+                onIconPressed: () {
+                  if (searchController.text.isNotEmpty) {
+                    Navigator.pushNamed(
+                      context,
+                      searchArticleRoute,
+                      arguments: searchController.text,
+                    );
+                  } else {
+                    Common()
+                        .bottomError(context, "Search field can't be empty!");
+                  }
+                },
                 placeHolderText: "Search news, articles, etc",
                 searchController: searchController,
                 fillColor: ConstantColors.inputColor2,
@@ -66,24 +79,20 @@ class _BlogScreenState extends State<BlogScreen> {
                 ],
               ),
               const SizedBox(height: 25),
-              blog.blog(
-                onTap: () {},
-                image: Path.blogImg,
-                title: "The style of young people in a strange world",
-                writterBy: "By Robert K",
-              ),
               ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 10,
+                itemCount: articles.length,
                 itemBuilder: (context, index) {
                   return blog.blog(
                     onTap: () {
-                      Navigator.pushNamed(context, blogDetailRoute);
+                      Navigator.pushNamed(context, blogDetailRoute,
+                          arguments: articles[index]);
                     },
-                    image: Path.blogImg,
-                    title: "The style of young people in a strange world",
-                    writterBy: "By Robert K",
+                    image: Common.imgUrl + articles[index].image,
+                    title: articles[index].title,
+                    writterBy:
+                        "${articles[index].tags.map((e) => e.tag!.name)}",
                   );
                 },
               )

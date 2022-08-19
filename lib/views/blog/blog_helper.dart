@@ -44,7 +44,7 @@ class BlogHelper extends ChangeNotifier {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(15),
-              child: Image.asset(
+              child: Image.network(
                 image,
                 width: 80,
                 height: 90,

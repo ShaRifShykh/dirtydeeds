@@ -69,7 +69,12 @@ class AudioHelper extends ChangeNotifier {
     );
   }
 
-  Widget books({required Function onTap}) {
+  Widget books({
+    required Function onTap,
+    required String image,
+    required String title,
+    required String authorName,
+  }) {
     return GestureDetector(
       onTap: () => onTap(),
       child: Container(
@@ -84,8 +89,8 @@ class AudioHelper extends ChangeNotifier {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Image.asset(
-                Path.audioImg,
+              child: Image.network(
+                image,
                 width: 105,
                 height: 105,
                 fit: BoxFit.cover,
@@ -95,7 +100,7 @@ class AudioHelper extends ChangeNotifier {
             SizedBox(
               width: 105,
               child: Text(
-                "Greek Myths Told",
+                title,
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w500,
                 ),
@@ -103,7 +108,7 @@ class AudioHelper extends ChangeNotifier {
             ),
             const SizedBox(height: 5),
             Text(
-              "Greek Myths Told",
+              authorName,
               style: GoogleFonts.poppins(
                 fontSize: 12,
                 color: ConstantColors.mainlyTextColor2,

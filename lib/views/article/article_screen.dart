@@ -2,7 +2,6 @@ import 'package:dirtydeeds/application/services/article_service.dart';
 import 'package:dirtydeeds/router/route_constant.dart';
 import 'package:dirtydeeds/values/common.dart';
 import 'package:dirtydeeds/values/constant_colors.dart';
-import 'package:dirtydeeds/values/path.dart';
 import 'package:dirtydeeds/widgets/article_tile.dart';
 import 'package:dirtydeeds/widgets/search_input_field.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +43,18 @@ class _ArticleScreenState extends State<ArticleScreen> {
             children: [
               SearchInputField(
                 wantPadding: false,
-                onIconPressed: () {},
+                onIconPressed: () {
+                  if (searchController.text.isNotEmpty) {
+                    Navigator.pushNamed(
+                      context,
+                      searchArticleRoute,
+                      arguments: searchController.text,
+                    );
+                  } else {
+                    Common()
+                        .bottomError(context, "Search field can't be empty!");
+                  }
+                },
                 placeHolderText: "Search news, articles, etc",
                 fillColor: ConstantColors.inputColor,
                 searchController: searchController,
@@ -57,7 +67,11 @@ class _ArticleScreenState extends State<ArticleScreen> {
                 itemBuilder: (context, index) {
                   return ArticleTile(
                     onTap: () {
-                      Navigator.pushNamed(context, articleDetailRoute);
+                      Navigator.pushNamed(
+                        context,
+                        articleDetailRoute,
+                        arguments: articles[index],
+                      );
                     },
                     imagePath: Common.imgUrl + articles[index].image,
                     title: articles[index].title,

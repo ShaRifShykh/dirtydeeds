@@ -8,6 +8,14 @@ class ConfigService extends ChangeNotifier {
   String? appLogo;
   String? appEmail;
   String? appPhoneNumber;
+  String? color1;
+  String? color2;
+  String? color3;
+  String? color4;
+  String? color5;
+  String? color6;
+  String? color7;
+  String? color8;
 
   String? aboutUs;
   String? privacyPolicy;
@@ -23,6 +31,14 @@ class ConfigService extends ChangeNotifier {
       appLogo = res.data["appLogo"];
       appEmail = res.data["appEmail"];
       appPhoneNumber = res.data["appPhoneNumber"];
+      color1 = res.data["color1"];
+      color2 = res.data["color2"];
+      color3 = res.data["color3"];
+      color4 = res.data["color4"];
+      color5 = res.data["color5"];
+      color6 = res.data["color6"];
+      color7 = res.data["color7"];
+      color8 = res.data["color8"];
 
       notifyListeners();
     } on DioError catch (e) {

@@ -1,19 +1,22 @@
+import 'package:dirtydeeds/values/common.dart';
 import 'package:dirtydeeds/values/constant_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Comment extends StatelessWidget {
-  const Comment(
-      {Key? key,
-      required this.name,
-      required this.commentAt,
-      required this.comment,
-      required this.totalLikes,
-      required this.onLikePressed,
-      required this.onDisLikePressed})
-      : super(key: key);
+  const Comment({
+    Key? key,
+    required this.name,
+    required this.commentAt,
+    required this.comment,
+    required this.totalLikes,
+    required this.onLikePressed,
+    required this.onDisLikePressed,
+    required this.profilePicture,
+  }) : super(key: key);
 
+  final String profilePicture;
   final String name;
   final String commentAt;
   final String comment;
@@ -24,17 +27,28 @@ class Comment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: ConstantColors.blueColor,
-                borderRadius: BorderRadius.circular(50),
-              ),
-            ),
+            profilePicture.isEmpty
+                ? Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: ConstantColors.blueColor,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                  )
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: Image.network(
+                      Common.imgUrl + profilePicture,
+                      width: 40,
+                      height: 40,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
             const SizedBox(width: 15),
             Text(
               name,

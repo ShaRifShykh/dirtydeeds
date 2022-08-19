@@ -1,3 +1,5 @@
+import 'package:dirtydeeds/application/models/category.dart';
+
 class AudioBook {
   final int id;
   final String image;
@@ -5,6 +7,7 @@ class AudioBook {
   final String title;
   final String artistName;
   final String description;
+  final Category? category;
   final String createdAt;
 
   AudioBook.fromJson(Map<String, dynamic> jsonMap)
@@ -14,5 +17,8 @@ class AudioBook {
         title = jsonMap['title'] ?? "",
         artistName = jsonMap['artistName'] ?? "",
         description = jsonMap['description'] ?? "",
+        category = jsonMap['category'] != null
+            ? Category.fromJson(jsonMap['category'])
+            : null,
         createdAt = jsonMap['createdAt'] ?? "";
 }

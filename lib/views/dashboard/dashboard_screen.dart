@@ -1,6 +1,8 @@
 import 'package:dirtydeeds/application/services/article_service.dart';
 import 'package:dirtydeeds/application/services/audio_book_service.dart';
 import 'package:dirtydeeds/application/services/auth_service.dart';
+import 'package:dirtydeeds/application/services/banner_service.dart';
+import 'package:dirtydeeds/application/services/config_service.dart';
 import 'package:dirtydeeds/application/services/journal_service.dart';
 import 'package:dirtydeeds/application/services/video_service.dart';
 import 'package:dirtydeeds/values/constant_colors.dart';
@@ -46,9 +48,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void _getData() async {
     Provider.of<AuthService>(context, listen: false).getUser();
     Provider.of<ArticleService>(context, listen: false).getArticles();
-    Provider.of<AudioBookService>(context, listen: false).getAudioBooks();
+    Provider.of<AudioBookService>(context, listen: false)
+        .getRecommendedAudioBooks();
+    Provider.of<AudioBookService>(context, listen: false)
+        .getPopularAudioBooks();
     Provider.of<JournalService>(context, listen: false).getJournals();
     Provider.of<VideoService>(context, listen: false).getVideos();
+    Provider.of<BannerService>(context, listen: false).getBanners();
+    Provider.of<ConfigService>(context, listen: false).getAppInfo();
   }
 
   @override

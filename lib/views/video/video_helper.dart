@@ -1,10 +1,20 @@
+import 'package:dirtydeeds/values/common.dart';
 import 'package:dirtydeeds/values/constant_colors.dart';
 import 'package:dirtydeeds/values/path.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class VideoHelper extends ChangeNotifier {
-  Widget video({required BuildContext context, required Function onTap}) {
+  Widget video(
+      {required BuildContext context,
+      required String image,
+      required String profilePicture,
+      required String name,
+      required String title,
+      required int videoLikes,
+      required int videoDisLikes,
+      required String videoViews,
+      required Function onTap}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 25),
       child: GestureDetector(
@@ -13,8 +23,8 @@ class VideoHelper extends ChangeNotifier {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                Path.videoImg2,
+              child: Image.network(
+                Common.imgUrl + image,
                 width: MediaQuery.of(context).size.width,
                 height: 200,
                 fit: BoxFit.cover,
@@ -48,17 +58,27 @@ class VideoHelper extends ChangeNotifier {
                     children: [
                       Row(
                         children: [
-                          Container(
-                            width: 20,
-                            height: 20,
-                            decoration: BoxDecoration(
-                              color: ConstantColors.blueColor,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                          ),
+                          profilePicture.isEmpty
+                              ? Container(
+                                  width: 20,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                    color: ConstantColors.blueColor,
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                )
+                              : ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: Image.network(
+                                    Common.imgUrl + profilePicture,
+                                    width: 20,
+                                    height: 20,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                           const SizedBox(width: 10),
                           Text(
-                            "John Doe",
+                            name,
                             style: GoogleFonts.poppins(
                               fontWeight: FontWeight.w400,
                               color: ConstantColors.whiteColor,
@@ -66,16 +86,14 @@ class VideoHelper extends ChangeNotifier {
                           )
                         ],
                       ),
-                      const SizedBox(height: 3),
                       Text(
-                        "IPL 2022, PBKS vs DC Highlights",
+                        title,
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w500,
-                          fontSize: 16,
+                          fontSize: 12,
                           color: ConstantColors.whiteColor,
                         ),
                       ),
-                      const SizedBox(height: 3),
                       Row(
                         children: [
                           const Icon(
@@ -85,7 +103,7 @@ class VideoHelper extends ChangeNotifier {
                           ),
                           const SizedBox(width: 10),
                           Text(
-                            "100",
+                            videoLikes.toString(),
                             style: GoogleFonts.poppins(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -100,7 +118,7 @@ class VideoHelper extends ChangeNotifier {
                           ),
                           const SizedBox(width: 10),
                           Text(
-                            "10",
+                            videoDisLikes.toString(),
                             style: GoogleFonts.poppins(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -115,7 +133,7 @@ class VideoHelper extends ChangeNotifier {
                           ),
                           const SizedBox(width: 10),
                           Text(
-                            "100K",
+                            videoViews.toString(),
                             style: GoogleFonts.poppins(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,

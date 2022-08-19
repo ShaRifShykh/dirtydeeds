@@ -37,6 +37,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var _authService = Provider.of<AuthService>(context, listen: true);
+
     return Scaffold(
       backgroundColor: ConstantColors.whiteColor,
       appBar: AppBar(
@@ -170,32 +172,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               const SizedBox(height: 15),
-              FilledButton(
-                onTap: () async {
-                  Provider.of<AuthService>(context, listen: false)
-                      .signUp(
-                        context: context,
-                        name: name.text,
-                        gender: _genderValue,
-                        phoneNumberOrEmail: phoneNumberOrEmail.text,
-                        password: password.text,
-                        confirmPassword: confirmPassword.text,
-                      )
-                      .then(
-                        (value) => {
-                          if (value != null)
-                            {
-                              Navigator.pushNamedAndRemoveUntil(
-                                context,
-                                dashboardRoute,
-                                (route) => false,
-                              )
-                            }
-                        },
-                      );
-                },
-                btnText: "Next",
-              ),
+              _authService.isLoading
+                  ? const CircularProgressIndicator()
+                  : FilledButton(
+                      onTap: () async {
+                        Provider.of<AuthService>(context, listen: false)
+                            .signUp(
+                              context: context,
+                              name: name.text,
+                              gender: _genderValue,
+                              phoneNumberOrEmail: phoneNumberOrEmail.text,
+                              password: password.text,
+                              confirmPassword: confirmPassword.text,
+                            )
+                            .then(
+                              (value) => {
+                                if (value != null)
+                                  {
+                                    Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      dashboardRoute,
+                                      (route) => false,
+                                    )
+                                  }
+                              },
+                            );
+                      },
+                      btnText: "Next",
+                    ),
             ],
           ),
         ),

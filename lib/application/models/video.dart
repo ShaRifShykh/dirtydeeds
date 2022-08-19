@@ -7,7 +7,7 @@ class Video {
   final String video;
   final String title;
   final String description;
-  final int views;
+  final String views;
   final String createdAt;
   final int totalVideoLikes;
   final int totalVideoDislikes;
@@ -20,7 +20,7 @@ class Video {
         video = jsonMap['video'] ?? "",
         title = jsonMap['title'] ?? "",
         description = jsonMap['description'] ?? "",
-        views = jsonMap['views'] ?? 0,
+        views = jsonMap['views'] ?? "",
         createdAt = jsonMap['createdAt'] ?? "",
         totalVideoLikes = jsonMap['totalVideoLikes'] ?? 0,
         totalVideoDislikes = jsonMap['totalVideoDislikes'] ?? 0,

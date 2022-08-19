@@ -1,3 +1,4 @@
+import 'package:dirtydeeds/application/services/video_service.dart';
 import 'package:dirtydeeds/router/route_constant.dart';
 import 'package:dirtydeeds/values/constant_colors.dart';
 import 'package:dirtydeeds/values/path.dart';
@@ -11,7 +12,8 @@ class VideoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var video = Provider.of<VideoHelper>(context, listen: false);
+    var videoHelper = Provider.of<VideoHelper>(context, listen: false);
+    var videos = Provider.of<VideoService>(context, listen: true).videos;
 
     return Scaffold(
       backgroundColor: ConstantColors.whiteColor,
@@ -49,40 +51,29 @@ class VideoScreen extends StatelessWidget {
               padding: const EdgeInsets.all(25),
               child: Column(
                 children: [
-                  video.video(
-                    context: context,
-                    onTap: () {
-                      Navigator.pushNamed(context, videoPreviewRoute);
-                    },
-                  ),
-                  video.video(
-                    context: context,
-                    onTap: () {
-                      Navigator.pushNamed(context, videoPreviewRoute);
-                    },
-                  ),
-                  video.video(
-                    context: context,
-                    onTap: () {
-                      Navigator.pushNamed(context, videoPreviewRoute);
-                    },
-                  ),
-                  video.video(
-                    context: context,
-                    onTap: () {
-                      Navigator.pushNamed(context, videoPreviewRoute);
-                    },
-                  ),
-                  video.video(
-                    context: context,
-                    onTap: () {
-                      Navigator.pushNamed(context, videoPreviewRoute);
-                    },
-                  ),
-                  video.video(
-                    context: context,
-                    onTap: () {
-                      Navigator.pushNamed(context, videoPreviewRoute);
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: videos.length,
+                    itemBuilder: (context, index) {
+                      return videoHelper.video(
+                        context: context,
+                        image: videos[index].image,
+                        profilePicture: videos[index].admin!.profilePicture,
+                        name:
+                            "${videos[index].admin!.firstName} ${videos[index].admin!.lastName}",
+                        title: videos[index].title,
+                        videoLikes: videos[index].totalVideoLikes,
+                        videoDisLikes: videos[index].totalVideoDislikes,
+                        videoViews: videos[index].views,
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            videoPreviewRoute,
+                            arguments: videos[index],
+                          );
+                        },
+                      );
                     },
                   ),
                 ],

@@ -13,11 +13,11 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class Common extends ChangeNotifier {
-  // static const String baseUrl = "http://themediplanet.co/api/";
-  // static const String imgUrl = "http://themediplanet.co/storage/";
+  static const String baseUrl = "https://themediplanet.co/api/";
+  static const String imgUrl = "https://themediplanet.co/storage/";
 
-  static const String baseUrl = "http://10.0.2.2:8000/api/";
-  static const String imgUrl = "http://10.0.2.2:8000/storage/";
+  // static const String baseUrl = "http://10.0.2.2:8000/api/";
+  // static const String imgUrl = "http://10.0.2.2:8000/storage/";
 
   File? _img;
   File? get getimg => _img;
@@ -208,5 +208,10 @@ class Common extends ChangeNotifier {
     } on PlatformException catch (e) {
       print(e);
     }
+  }
+
+  Color colorFromHex(String hexColor) {
+    final hexCode = hexColor.replaceAll("#", "");
+    return Color(int.parse("FF$hexCode", radix: 16));
   }
 }
